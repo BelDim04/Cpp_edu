@@ -15,4 +15,9 @@ write_pid(){
 }
 
 cd /home/judge
-start_server && write_pid && healthcheck &
+pid=$(cat server.pid  2>/dev/null)
+if [[ $pid == "" ]]; then
+	start_server && write_pid && healthcheck &
+else
+	echo server already exist
+fi
